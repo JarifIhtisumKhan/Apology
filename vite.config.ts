@@ -3,6 +3,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "/JarifIhtisumKhan/", // Replace with your repository name
+  base: "/Apology/", // Replace with your repository name
   plugins: [react()],
 });
