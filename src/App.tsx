@@ -8,14 +8,21 @@ const messages = [
   "Congratulations, you are correct like always.",
 ];
 
+const pillMessages = [
+  "You wake up in your bed and believe whatever you want to believe.",
+  "You stay in Wonderland and I show you how deep the rabbit hole goes. ",
+];
+
 function App() {
   const [state, changeState] = useState(0);
   const [isDumdumBtnClicked, setIsDumdumBtnClicked] = useState(false);
+  const [pill, setPill] = useState<number>(0);
 
   const egg = useRef(null);
   const jarif = useRef(null);
   const dumdumForm = useRef<HTMLDivElement | null>(null);
   const matrixDecision = useRef<HTMLDivElement | null>(null);
+  const pillResult = useRef<HTMLDivElement | null>(null);
 
   const yesBtn = useRef<HTMLButtonElement | null>(null);
   const noBtn = useRef<HTMLButtonElement | null>(null);
@@ -26,6 +33,7 @@ function App() {
     tl.set(jarif.current, { scale: 0 });
     tl.set(dumdumForm.current, { scale: 0 });
     tl.set(matrixDecision.current, { opacity: 0, display: "none" });
+    tl.set(pillResult.current, { scale: 0 });
     tl.to(egg.current, {
       y: 0,
       duration: 1,
@@ -59,7 +67,14 @@ function App() {
       gsap.to(matrixDecision.current, {
         opacity: 1,
         display: "block",
-        delay: 2,
+        delay: 3,
+        duration: 1,
+      });
+    }
+
+    if (state == 3) {
+      gsap.to(pillResult.current, {
+        scale: 1,
         duration: 1,
       });
     }
@@ -136,12 +151,51 @@ function App() {
       </div>
 
       <div
-        className="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-[#0000003f]"
+        className="fixed top-0 bottom-0 left-0 right-0 flex flex-col items-center bg-[#0000003f]"
         ref={matrixDecision}
       >
-        <div>
-          <img src={`${import.meta.env.BASE_URL}/red_blue_pill.png`} alt="" />
+        <img
+          className=" flex-1 border"
+          src={`${import.meta.env.BASE_URL}/red_blue_pill.png`}
+          alt=""
+        />
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex">
+          <button
+            onClick={() => {
+              changeState(3);
+              setPill(0);
+            }}
+            className="bg-[#ff101046] transition-all hover:bg-[#ff00008f] flex-1 text-white"
+          >
+            Red Pill
+          </button>
+          <button
+            onClick={() => {
+              changeState(3);
+              setPill(1);
+            }}
+            className="bg-[#0000ff4c]  transition-all hover:bg-[#0000ff9d] flex-1 text-white"
+          >
+            Blue Pill
+          </button>
         </div>
+
+        {state == 3 && (
+          <div className="fixed text-white font-black text-8xl top-0 left-0 bottom-0 right-0 flex items-center justify-center"></div>
+        )}
+      </div>
+
+      <div
+        ref={pillResult}
+        className="fixed top-0 bottom-0 left-0 right-0 bg-white z-50 p-10"
+      >
+        {pillMessages[pill]}
+
+        {pill == 1 && (
+          <a className="text-blue-700 font-bold" href="/Apology/">
+            Try again?
+          </a>
+        )}
       </div>
     </div>
   );
