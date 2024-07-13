@@ -74,14 +74,17 @@ function App() {
             ref={egg}
             onClick={() => changeState(state + 1)}
             className="w-64"
-            src={`/egg-${state >= 1 ? 1 : 0}.png`}
+            src={`${import.meta.env.BASE_URL}/egg-${state >= 1 ? 1 : 0}.png`}
             alt=""
           />
           <div
             ref={jarif}
             className="w-64 text-center absolute top-0 flex items-center justify-center"
           >
-            <img className="w-36 " src="/jarif.png" />
+            <img
+              className="w-36 "
+              src={`${import.meta.env.BASE_URL}/jarif.png`}
+            />
           </div>
         </div>
       </div>
@@ -137,7 +140,7 @@ function App() {
         ref={matrixDecision}
       >
         <div>
-          <img src="/red_blue_pill.png" alt="" />
+          <img src={`${import.meta.env.BASE_URL}/red_blue_pill.png`} alt="" />
         </div>
       </div>
     </div>
